@@ -91,3 +91,8 @@ const hijriDate = today.toLocaleDateString('ar-EG-u-ca-islamic', {
 });
 
 date.innerHTML = `ميلادي: ${gregorianDate} <br> هجري: ${hijriDate}`;
+document.body.addEventListener('click', () => {
+    const music = document.getElementById('music');
+    music.muted = false;
+    music.play();
+});
