@@ -53,7 +53,7 @@ const fetchWeather = async function () {
         );
         const data = await response.json();
 
-        country.innerHTML = "العراق";
+        country.innerHTML = "بغداد";
         const temp = data.current_weather.temperature;
         degree.innerHTML = `${temp} °C`;
         const code = data.current_weather.weathercode;
