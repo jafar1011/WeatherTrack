@@ -3,6 +3,7 @@ const degree = document.getElementById('degree');
 const condition = document.getElementById('condition');
 const time = document.getElementById('time');
 const date = document.getElementById('date');
+const image = document.getElementById('image');
 
 const conditionTranslations = {
     "clear sky": "سماء صافية",
@@ -46,6 +47,32 @@ const weatherCodeMap = {
     99: "thunderstorm"
 };
 
+function updateBackground(conditionKey) {
+    const hour = new Date().getHours();
+    const isDay = hour < 18;
+    const timeOfDay = isDay ? "day" : "night";
+
+    const isRainy = conditionKey.includes("rain") || conditionKey.includes("thunderstorm");
+    const imageFile = isRainy ? `rainy-${timeOfDay}.gif` : `sunny-${timeOfDay}.png`;
+
+    image.src = `sources/${imageFile}`;
+    updateMusic(isRainy);
+}
+
+function updateMusic(isRainy) {
+    const music = document.getElementById('music');
+    const musicSource = document.getElementById('musicSource');
+
+    const newSrc = isRainy ? "sources/rainymusic.mp3" : "sources/music.mp3"; // <-- path updated
+
+    if (musicSource.getAttribute('src') !== newSrc) {
+        music.pause();
+        musicSource.setAttribute('src', newSrc);
+        music.load();
+        music.play();
+    }
+}
+
 const fetchWeather = async function () {
     try {
         const response = await fetch(
@@ -61,6 +88,8 @@ const fetchWeather = async function () {
         const arabicCondition = conditionTranslations[englishCondition] || englishCondition;
 
         condition.innerHTML = arabicCondition;
+
+        updateBackground(englishCondition);
     } catch (error) {
         condition.innerHTML = "خطأ في جلب البيانات";
         console.error("Fetch error:", error);
@@ -74,9 +103,9 @@ function updateTime() {
     time.innerHTML = new Date().toLocaleTimeString();
 }
 setInterval(updateTime, 1000);
-const today = new Date();
 
 // Gregorian date (Arabic)
+const today = new Date();
 const gregorianDate = today.toLocaleDateString('ar-EG', {
     year: 'numeric',
     month: 'long',
@@ -91,6 +120,7 @@ const hijriDate = today.toLocaleDateString('ar-EG-u-ca-islamic', {
 });
 
 date.innerHTML = `ميلادي: ${gregorianDate} <br> هجري: ${hijriDate}`;
+
 document.body.addEventListener('click', () => {
     const music = document.getElementById('music');
     music.muted = false;
