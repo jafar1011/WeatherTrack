@@ -49,7 +49,7 @@ const weatherCodeMap = {
 
 function updateBackground(conditionKey) {
     const hour = new Date().getHours();
-    const isDay = hour < 18;
+    const isDay = hour >= 6 && hour < 18;
     const timeOfDay = isDay ? "day" : "night";
 
     const isRainy = conditionKey.includes("rain") || conditionKey.includes("thunderstorm");
