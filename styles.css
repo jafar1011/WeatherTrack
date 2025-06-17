@@ -10,6 +10,13 @@ body {
     overflow: hidden;
 }
 
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 30px;
+        /* increase font for better readability */
+    }
+}
+
 body {
     display: flex;
     flex-direction: column;
