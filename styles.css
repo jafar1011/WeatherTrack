@@ -21,6 +21,12 @@ body {
     user-select: none;
 }
 
+h1,
+h2 {
+    text-shadow: 1px 1px 4px black;
+    margin: 10px;
+}
+
 
 #image {
     position: fixed;
