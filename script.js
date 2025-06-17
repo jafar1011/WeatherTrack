@@ -68,7 +68,7 @@ const fetchWeather = async function () {
 }
 
 fetchWeather();
-setInterval(fetchWeather, 10 * 60 * 1000);
+setInterval(fetchWeather, 5 * 60 * 1000);
 
 function updateTime() {
     time.innerHTML = new Date().toLocaleTimeString();
